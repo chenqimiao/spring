@@ -238,6 +238,8 @@ public class ClassPathMapperScanner extends ClassPathBeanDefinitionScanner {
 
       if (!explicitFactoryUsed) {
         LOGGER.debug(() -> "Enabling autowire by type for MapperFactoryBean with name '" + holder.getBeanName() + "'.");
+        //设置自动注入为ByType,主要是为了将Spring上下文中的SqlSessionFactory注入到MapperFactoryBean中，
+        //以便后续从SqlSession获取Mapper实例（动态代理后的实例）
         definition.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
       }
       definition.setLazyInit(lazyInitialization);
