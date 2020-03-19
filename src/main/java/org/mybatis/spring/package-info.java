@@ -15,5 +15,17 @@
  */
 /**
  * Contains core classes to build the MyBatis integration with Spring3.X.
+ *
+ *
+ * \@MapperScan -> @Import(MapperScannerRegistrar.class) -> MapperScannerRegistrar#registerBeanDefinitions
+ * -> Register MapperScannerConfigurer -> MapperScannerConfigurer#postProcessBeanDefinitionRegistry
+ * -> ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry) -> 为scanner注册自定义filter
+ * -> scanner.scan -> ClassPathMapperScanner#doScan(java.lang.String...)
+ * -> ClassPathMapperScanner$processBeanDefinitions(beanDefinitions);
+ * -> definition.setBeanClass(this.mapperFactoryBeanClass);
+ * -> MapperFactoryBean#getObject()
+ * -> SqlSession.getMapper
+ * -> 拿到Mapper接口的实现
+ * -> mybatis自有流程..
  */
 package org.mybatis.spring;
